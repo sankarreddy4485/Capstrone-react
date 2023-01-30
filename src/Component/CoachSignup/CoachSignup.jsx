@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router'
 import './CoachSignup.css'
 import coachimg from '../../Images/coachimg.jpg'
 
 export default function CoachSignup() {
-  const initialState = { name:"", password:"", dob:"", gender:"", mobilenumber:0, speciality:"" }; 
+  const initialState = { name:"", passsword:"", dob:"", gender:"", mobilenumber:0, speciality:"" }; 
   const [coach, setCoach] = useState(initialState);  
-  const { name, password, dob, gender, mobilenumber, speciality } = coach;  
+  const { name, passsword, dob, gender, mobilenumber, speciality } = coach;  
+  const navigate = useNavigate();
   const [homePage,setHomePage] = useState(true)
   const [response,setResponse] = useState(null)
 
@@ -15,12 +17,16 @@ export default function CoachSignup() {
   }
   const coachSignupSubmitHandler = async (event) => {
     event.preventDefault();
-    await axios.post("http://localhost:9005/coachregistration-service/api/coachProfile/addCoach", coach);
+    await axios.post("http://localhost:9001/api/coachProfile/addCoach", coach);
     console.log(response);
     setResponse(response)
     setHomePage(false);
   }  
+  const loginHandleClick =()=>{
+   
+    navigate('/coachLogin');
 
+  }
   if (homePage) {
   return (
     <div className="coach-signup-container">
@@ -47,11 +53,11 @@ export default function CoachSignup() {
                     <label className="element-label">Password</label>
                     <input 
                         className="element-input"
-                        type="password"
+                        type="passsword"
                         minLength="5"
                         maxLength="10"
-                        name="password"
-                        value={password}
+                        name="passsword"
+                        value={passsword}
                         onChange={(event)=>{onChangeInput(event)}}
                     />
                 </div>
@@ -111,7 +117,7 @@ export default function CoachSignup() {
               <img className="coach-signup-img" src={coachimg} alt="coach-signup-img"/>
               <h2>You are a coach now !!</h2>
               <h4>Your coach id is {response?.data}</h4>
-              <button className="login-btn">Login now</button>
+              <button className="login-btn" onClick={loginHandleClick}>Login now</button>
           </div>
       )
   }
