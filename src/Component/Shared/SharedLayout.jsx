@@ -7,7 +7,7 @@ import Footer from '../Footer/Footer'
 export default function SharedLayout() {
   return (
     <>
-       <Header/>
+       {/* <Header/> */}
        <Outlet/> 
        <Footer/>
     </>

@@ -8,7 +8,7 @@ export default function Header() {
             WeCare
         </div>
         <div className="header-details">
-        <span className="material-symbols-outlined">call</span>
+       
         <span>Call Us : 080 2233447</span>
         </div>
     </div>

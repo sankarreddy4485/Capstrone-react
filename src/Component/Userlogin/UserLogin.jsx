@@ -4,6 +4,7 @@ import Axios from 'axios'
 import coachimg from '../../Images/Userimage.jpg'
 import './UserLogin.css'
 import { useNavigate } from 'react-router'
+import Header from '../Header/Header';
 const UserLogin=() => {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
@@ -29,7 +30,8 @@ const UserLogin=() => {
         )
       }
   return (
-    
+    <>
+    <Header></Header>
     <div className="coach-card">
         <form className='form' onSubmit={handleSubmit}>
         <img src={coachimg} alt="coach-img"/>
@@ -60,6 +62,7 @@ const UserLogin=() => {
         </button>
         </form>
     </div>
+    </>
   )
 }
 export default UserLogin;

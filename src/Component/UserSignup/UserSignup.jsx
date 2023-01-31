@@ -1,43 +1,41 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router'
-import './CoachSignup.css'
-import coachimg from '../../Images/coachimg.jpg'
-import Header from '../Header/Header'
+import './UserSignup.css'
+import coachimg from '../../Images/Userimage.jpg'
 
-export default function CoachSignup() {
-  const initialState = { name:"", passsword:"", dob:"", gender:"", mobilenumber:0, speciality:"" }; 
-  const [coach, setCoach] = useState(initialState);  
-  const { name, passsword, dob, gender, mobilenumber, speciality } = coach;  
+export default function UserSignup() {
+  const initialState = { name:"", passsword:"", dob:"", gender:"", mobilenumber:0, email:"",pincode:"" ,city:"", state:"", country:""}; 
+  const [user, setUser] = useState(initialState);  
+  const { name, passsword, dob, gender, mobilenumber, email, pincode, city, state,country } = user;  
   const navigate = useNavigate();
   const [homePage,setHomePage] = useState(true)
   const [response,setResponse] = useState(null)
 
   const onChangeInput = (event) => {
-    setCoach({...coach, [event.target.name] : event.target.value})
+    setUser({...user, [event.target.name] : event.target.value})
   }
-  const coachSignupSubmitHandler = async (event) => {
+  const userSignupSubmitHandler = async (event) => {
     event.preventDefault();
-    await axios.post("http://localhost:9001/api/coachProfile/addCoach", coach);
+    await axios.post("http://localhost:9003/api/userProfile/addUserProfile", user);
     console.log(response);
     setResponse(response)
     setHomePage(false);
   }  
   const loginHandleClick =()=>{
    
-    navigate('/coachLogin');
+    navigate('/userLogin');
 
   }
   if (homePage) {
   return (
     <div className="coach-signup-container">
-        <Header></Header>
         <div className="coach-signup-form">
             <h2>
                 <img className="coach-signup-img" src={coachimg} alt="coach-signup-img"/>
-                <span>Life coach profile</span>
+                <span>Life user profile</span>
             </h2>
-            <form onSubmit={(event) => {coachSignupSubmitHandler(event)}}>
+            <form onSubmit={(event) => {userSignupSubmitHandler(event)}}>
                 
                 <div className="element">
                     <label className="element-label">Name</label>
@@ -95,17 +93,64 @@ export default function CoachSignup() {
                     />
                 </div>
                 <div className="element">
-                    <label className="element-label">Speciality</label>
+                    <label className="element-label">Email</label>
                     <input 
                         className="element-input"
                         type="text"
                         minLength="3"
                         maxLength="50"
-                        name="speciality"
-                        value={speciality}
+                        name="email"
+                        value={email}
                         onChange={(event)=>{onChangeInput(event)}}
                     />
-                </div>      
+                </div> 
+                <div className="element">
+                    <label className="element-label">Pincode</label>
+                    <input 
+                        className="element-input"
+                        type="text"
+                        minLength="6"
+                        maxLength="6"
+                        name="pincode"
+                        value={pincode}
+                        onChange={(event)=>{onChangeInput(event)}}
+                    />
+                </div>  
+                <div className="element">
+                    <label className="element-label">City</label>
+                    <input 
+                        className="element-input"
+                        type="text"
+                        minLength="0"
+                        maxLength="20"
+                        name="city"
+                        value={city}
+                        onChange={(event)=>{onChangeInput(event)}}
+                    />
+                </div>
+                <div className="element">
+                    <label className="element-label">State</label>
+                    <input 
+                        className="element-input"
+                        type="text"
+                        maxLength="20"
+                        name="state"
+                        value={state}
+                        onChange={(event)=>{onChangeInput(event)}}
+                    />
+                </div>
+                <div className="element">
+                    <label className="element-label">Country</label>
+                    <input 
+                        className="element-input"
+                        type="text"
+                        minLength="0"
+                        maxLength="20"
+                        name="country"
+                        value={country}
+                        onChange={(event)=>{onChangeInput(event)}}
+                    />
+                </div>          
                 <div className="element-btn">
                     <button>Register</button>
                 </div>  
@@ -117,8 +162,8 @@ export default function CoachSignup() {
       return (
           <div className="coach-signup-container sign-up-success-container">
               <img className="coach-signup-img" src={coachimg} alt="coach-signup-img"/>
-              <h2>You are a coach now !!</h2>
-              <h4>Your coach id is {response?.data}</h4>
+              <h2>You are a user now !!</h2>
+              <h4>Your user id is {response?.data}</h4>
               <button className="login-btn" onClick={loginHandleClick}>Login now</button>
           </div>
       )
