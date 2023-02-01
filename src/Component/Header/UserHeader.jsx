@@ -1,16 +1,18 @@
 import React from 'react'
 import './Header.css'
 import { useNavigate } from 'react-router'
-export default function CaochHeader() {
+export default function UserHeader() {
+ 
   const navigate = useNavigate();
     const logoutHandler = () => {
-        navigate('/coachLogin');
+        navigate('/userLogin');
       }
       const schdulerHandler = () => {
-        navigate('/coachSchedule');
+        navigate('/userSchedule');
       }
       const profileHandler = () => {
-        navigate('/coachHome');
+       
+        navigate('/userProfile');
       }
       
   return (

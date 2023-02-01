@@ -5,7 +5,7 @@ import coachimg from '../../Images/Userimage.jpg'
 import './UserLogin.css'
 import { useNavigate } from 'react-router'
 import Header from '../Header/Header';
-const UserLogin=() => {
+const UserLogin=(props) => {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ const UserLogin=() => {
         Axios.get(`http://localhost:9005/capstronelogin-service/api/login/userLogin/${id}/${password}`).then((response)=>{
     
           console.log(response);
-    
+          props.setUserId(id);
           setId("");
     
           setPassword("");
@@ -35,7 +35,7 @@ const UserLogin=() => {
     <div className="coach-card">
         <form className='form' onSubmit={handleSubmit}>
         <img src={coachimg} alt="coach-img"/>
-        <h2>Login as a Life Coach</h2>
+        <h2>Login as a User</h2>
         <div className='form-row'>
          
           <input
@@ -44,6 +44,7 @@ const UserLogin=() => {
             id='id'
             value={id}
             placeholder='User Id'
+            required
             onChange={(e) => setId(e.target.value)}
           />
         </div>
@@ -54,6 +55,7 @@ const UserLogin=() => {
             id='password'
             value={password}
             placeholder='Password'
+            required
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
